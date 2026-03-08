@@ -239,10 +239,8 @@ let slideTimes=[7000,7000,10000,10000,10000,7000,10000,10000,12000,7000];
 slides.forEach(()=>{
 let p=document.createElement("div");
 p.className="progress";
-
 let b=document.createElement("div");
 b.className="bar";
-
 p.appendChild(b);
 progressContainer.appendChild(p);
 });
@@ -362,7 +360,7 @@ document.body.appendChild(p);
 setTimeout(()=>p.remove(),8000);
 },1500);
 
-/* COUNTER (FIXED DATE) */
+/* ADVANCED COUNTER */
 
 let startDate = new Date("2024-02-14T00:00:00").getTime();
 
@@ -370,15 +368,27 @@ setInterval(()=>{
 
 let now = new Date().getTime();
 
-let days = Math.floor((now - startDate) / (1000*60*60*24));
+let diff = now - startDate;
+
+let days = Math.floor(diff / (1000*60*60*24));
+let hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+let minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+let seconds = Math.floor((diff % (1000*60)) / 1000);
+let milliseconds = diff % 1000;
 
 let el = document.getElementById("counter");
 
 if(el){
-el.innerHTML = days + " days since I met you ❤️";
+el.innerHTML =
+days+" Days<br>"+
+hours+" Hours<br>"+
+minutes+" Minutes<br>"+
+seconds+" Seconds<br>"+
+milliseconds+" Milliseconds<br>"+
+"since I met you ❤️";
 }
 
-},1000);
+},50);
 
 /* fireworks */
 
