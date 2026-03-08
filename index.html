@@ -360,35 +360,39 @@ document.body.appendChild(p);
 setTimeout(()=>p.remove(),8000);
 },1500);
 
-/* ADVANCED COUNTER */
 
-let startDate = new Date("2024-02-14T00:00:00").getTime();
+/* ULTRA SMOOTH COUNTER (DAYS HOURS MINUTES SECONDS MILLISECONDS) */
 
-setInterval(()=>{
+const startDate = new Date("2024-02-14T00:00:00").getTime();
 
-let now = new Date().getTime();
+function updateCounter(){
 
-let diff = now - startDate;
+const now = Date.now();
+const diff = now - startDate;
 
-let days = Math.floor(diff / (1000*60*60*24));
-let hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-let minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
-let seconds = Math.floor((diff % (1000*60)) / 1000);
-let milliseconds = diff % 1000;
+const days = Math.floor(diff / (1000*60*60*24));
+const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+const seconds = Math.floor((diff % (1000*60)) / 1000);
+const milliseconds = diff % 1000;
 
-let el = document.getElementById("counter");
+const el = document.getElementById("counter");
 
 if(el){
 el.innerHTML =
-days+" Days<br>"+
-hours+" Hours<br>"+
-minutes+" Minutes<br>"+
-seconds+" Seconds<br>"+
-milliseconds+" Milliseconds<br>"+
+days + " Days<br>" +
+hours + " Hours<br>" +
+minutes + " Minutes<br>" +
+seconds + " Seconds<br>" +
+milliseconds + " Milliseconds<br>" +
 "since I met you ❤️";
 }
 
-},50);
+requestAnimationFrame(updateCounter);
+
+}
+
+updateCounter();
 
 /* fireworks */
 
