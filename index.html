@@ -165,59 +165,163 @@ box-sizing:border-box;
 
 <div class="slide active">
 <h1>Happy Women's Day 🌸</h1>
-<p>A little story for someone special...</p>
-<p style="opacity:0.6;font-size:14px">Tap or swipe to continue →</p>
+
+<p>
+Aaj Women's Day hai… 🌸  
+Aur aaj main ek choti si story share karna chahta hoon  
+ek aise insaan ke baare me  
+jo meri life me thodi si zyada special hai 💜
+</p>
+
+<p style="opacity:0.6;font-size:14px">
+Tap ya swipe karke aage dekho →
+</p>
+
 </div>
 
 <div class="slide">
 <h1>Women</h1>
-<p>Women are not just part of the world — they are the strength that keeps it moving.</p>
+
+<p>
+Women sirf duniya ka hissa nahi hoti…  
+woh duniya ko better banane ki wajah hoti hain ✨  
+
+Unki strength, kindness aur care  
+life ko aur beautiful bana dete hain 🌸
+</p>
+
 </div>
 
 <div class="slide">
 <h1>Respect</h1>
-<p>Every woman deserves respect and equality — not just today, but every single day.</p>
+
+<p>
+Har woman respect, appreciation  
+aur happiness deserve karti hai 💜  
+
+Sirf aaj nahi…  
+har ek din.
+</p>
+
 </div>
 
 <div class="slide">
 <h1>Someone Special</h1>
-<p>Among millions of women in the world… someone means a little more to me.</p>
+
+<p>
+Duniya me bahut amazing women hain…  
+par un sab me se ek aisi bhi hai  
+jo mere liye thodi si zyada special hai ✨  
+
+Aur uska naam hai…
+</p>
+
 </div>
 
 <div class="slide">
 <h1>Garima 💜</h1>
-<p>Kind • Strong • Supportive • Future Doctor 👩‍⚕️</p>
+
+<p>
+Ek kind heart 💜  
+Ek strong mind ✨  
+Aur ek caring soul 🌸  
+
+Aur saath me ek beautiful dream —  
+ek din doctor banne ka 👩‍⚕️
+</p>
+
 </div>
 
 <div class="slide">
 <h1>Since I Met You</h1>
+
 <p id="counter"></p>
-</div>
 
-<div class="slide">
-<h1>My Golu</h1>
-<p>Sometimes a person enters your life and quietly changes it for the better.</p>
-</div>
-
-<div class="slide">
-<h1>My Wife Jii</h1>
-<p>Maybe today I jokingly call you Wife Jii… but somewhere in my heart I wish it becomes real.</p>
-</div>
-
-<div class="slide">
-<div class="letter-card">
-<h1>A Letter For You</h1>
-<p>
-Garima, the way you chase your dreams and care for people inspires me every single day.
-Your kindness and strength make this world a better place.
+<p style="margin-top:10px">
+Aur us din se lekar aaj tak  
+life thodi aur special lagne lagi hai ❤️
 </p>
-</div>
+
 </div>
 
 <div class="slide">
+<h1>Someone Special</h1>
+
+<p>
+Kabhi kabhi koi insaan zindagi me aata hai  
+aur dheere dheere bahut special ban jata hai.  
+
+Aur meri life me  
+wo insaan tum ho 💜
+</p>
+
+</div>
+
+<div class="slide">
+<h1>Wife Jii</h1>
+
+<p>
+Kabhi kabhi main tumhe  
+"Wife Jii" bol deta hoon 😄  
+
+Par sach kahun…  
+ye naam thoda special isliye lagta hai  
+kyunki tum meri life me bhi  
+thodi special ho ❤️
+</p>
+
+</div>
+
+<div class="slide">
+
+<div class="letter-card">
+
+<h1>A Letter For You 💌</h1>
+
+<p>
+
+Garima,
+
+Tum jis tarah apne dreams ke liye mehnat karti ho  
+aur doctor banne ka goal rakhti ho  
+wo honestly mujhe bahut inspire karta hai 👩‍⚕️  
+
+Mujhe pura yakeen hai  
+ek din tum ek amazing doctor banogi  
+aur bahut logon ki life better banaogi.
+
+Aur pata hai…  
+tumhari kindness aur simplicity  
+tumhe aur bhi special banati hai ✨  
+
+Shayad tumhe pata bhi nahi,  
+par tumhari presence  
+meri life ko thoda aur better bana deti hai 💜
+
+</p>
+
+</div>
+
+</div>
+
+<div class="slide">
+
 <h1>Garima ❤️ Vatsal</h1>
-<h2>Happy Women's Day</h2>
-<p>— From Vatsal</p>
+<h2>Happy Women's Day 🌸</h2>
+
+<p>
+Duniya me bahut log milte hain…  
+par kuch log dil me jagah bana lete hain 💜  
+
+Aur tum unhi me se ek ho.
+
+I'm really glad  
+that someone like you  
+is part of my life ✨
+</p>
+
+<p>— Vatsal ❤️</p>
+
 </div>
 
 <audio id="music" loop preload="auto">
@@ -300,22 +404,6 @@ showSlide();
 
 }
 
-/* navigation */
-
-document.body.addEventListener("click",(e)=>{
-
-if(intro.style.display!=="none") return;
-
-if(e.clientX>window.innerWidth/2) index++;
-else index--;
-
-if(index<0) index=slides.length-1;
-if(index>=slides.length) index=0;
-
-showSlide();
-
-});
-
 /* swipe */
 
 let startX=0;
@@ -360,7 +448,7 @@ document.body.appendChild(p);
 setTimeout(()=>p.remove(),8000);
 },1500);
 
-/* ULTRA SMOOTH COUNTER (DAYS HOURS MINUTES SECONDS MILLISECONDS) */
+/* counter */
 
 const startDate = new Date("2024-02-14T00:00:00").getTime();
 
@@ -392,7 +480,7 @@ requestAnimationFrame(updateCounter);
 }
 
 updateCounter();
-  
+
 /* fireworks */
 
 function fireworks(){
