@@ -17,17 +17,6 @@ color:white;
 overflow:hidden;
 }
 
-/* galaxy */
-
-#galaxy{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-1;
-}
-
 /* intro */
 
 #intro{
@@ -79,13 +68,6 @@ transition:all 1s;
 .active{
 opacity:1;
 transform:scale(1);
-}
-
-/* lavender glow */
-
-body.lavender-glow{
-background:radial-gradient(circle,#3b1d5a,#000);
-transition:background 1.5s ease;
 }
 
 h1{
@@ -172,8 +154,6 @@ box-sizing:border-box;
 
 <body>
 
-<canvas id="galaxy"></canvas>
-
 <div id="intro">
 <h1>Happy Women's Day 🌸</h1>
 <button id="startBtn">Start Story</button>
@@ -185,44 +165,28 @@ box-sizing:border-box;
 
 <div class="slide active">
 <h1>Happy Women's Day 🌸</h1>
-<p>Aaj ka din special hai…  
-par mere liye ek aur wajah se bhi special hai 💜</p>
-<p style="opacity:0.6;font-size:14px">Tap ya swipe karke aage dekho →</p>
+<p>A little story for someone special...</p>
+<p style="opacity:0.6;font-size:14px">Tap or swipe to continue →</p>
 </div>
 
 <div class="slide">
 <h1>Women</h1>
-<p>
-Women sirf duniya ka hissa nahi hoti…  
-woh duniya ko better banane ki wajah hoti hain ✨
-</p>
+<p>Women are not just part of the world — they are the strength that keeps it moving.</p>
 </div>
 
 <div class="slide">
 <h1>Respect</h1>
-<p>
-Har woman respect aur happiness deserve karti hai 🌸  
-sirf aaj nahi… har din.
-</p>
+<p>Every woman deserves respect and equality — not just today, but every single day.</p>
 </div>
 
 <div class="slide">
 <h1>Someone Special</h1>
-<p>
-Duniya me millions amazing women hain…  
-par un sab me se ek aisi bhi hai  
-jo mere liye thodi si zyada special hai 💜
-</p>
+<p>Among millions of women in the world… someone means a little more to me.</p>
 </div>
 
-<div class="slide garima-slide">
+<div class="slide">
 <h1>Garima 💜</h1>
-<p>
-Ek kind heart ❤️  
-Ek strong mind ✨  
-Aur ek caring soul 🌸  
-Aur uska naam hai… Garima.
-</p>
+<p>Kind • Strong • Supportive • Future Doctor 👩‍⚕️</p>
 </div>
 
 <div class="slide">
@@ -231,127 +195,126 @@ Aur uska naam hai… Garima.
 </div>
 
 <div class="slide">
-<h1>Wife Jii</h1>
-<p>
-Kabhi kabhi main tumhe  
-"Wife Jii" bol deta hoon 😄  
+<h1>My Golu</h1>
+<p>Sometimes a person enters your life and quietly changes it for the better.</p>
+</div>
 
-Par sach kahun…  
-ye naam thoda special lagta hai  
-kyunki tum meri life me bhi  
-thodi special ho 💜
-</p>
+<div class="slide">
+<h1>My Wife Jii</h1>
+<p>Maybe today I jokingly call you Wife Jii… but somewhere in my heart I wish it becomes real.</p>
 </div>
 
 <div class="slide">
 <div class="letter-card">
-<h1>A Letter For You 💌</h1>
-<p id="letterText"></p>
-</div>
-</div>
-
-<div class="slide final-slide">
-<h1>Garima ❤️ Vatsal</h1>
-<h2>Happy Women's Day 🌸</h2>
+<h1>A Letter For You</h1>
 <p>
-I'm really glad  
-that someone like you  
-is part of my life ✨
+Garima, the way you chase your dreams and care for people inspires me every single day.
+Your kindness and strength make this world a better place.
 </p>
-<p>— Vatsal ❤️</p>
+</div>
 </div>
 
-<audio id="music" loop>
-<source src="my.mp3">
+<div class="slide">
+<h1>Garima ❤️ Vatsal</h1>
+<h2>Happy Women's Day</h2>
+<p>— From Vatsal</p>
+</div>
+
+<audio id="music" loop preload="auto">
+<source src="my.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
-/* galaxy */
-
-const canvas=document.getElementById("galaxy");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let stars=[];
-
-for(let i=0;i<150;i++){
-stars.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-size:Math.random()*2,
-speed:Math.random()*0.3
-});
-}
-
-function animateStars(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="white";
-
-stars.forEach(star=>{
-
-star.y+=star.speed;
-
-if(star.y>canvas.height){
-star.y=0;
-star.x=Math.random()*canvas.width;
-}
-
-ctx.beginPath();
-ctx.arc(star.x,star.y,star.size,0,Math.PI*2);
-ctx.fill();
-
-});
-
-requestAnimationFrame(animateStars);
-
-}
-
-animateStars();
-
 /* slides */
 
 let slides=document.querySelectorAll(".slide");
+let progressContainer=document.getElementById("progressContainer");
+
 let index=0;
+let slideTimeout;
+
+let slideTimes=[7000,7000,10000,10000,10000,7000,10000,10000,12000,7000];
+
+slides.forEach(()=>{
+let p=document.createElement("div");
+p.className="progress";
+let b=document.createElement("div");
+b.className="bar";
+p.appendChild(b);
+progressContainer.appendChild(p);
+});
+
+let bars=document.querySelectorAll(".bar");
 
 function showSlide(){
+
+clearTimeout(slideTimeout);
 
 slides.forEach(s=>s.classList.remove("active"));
 slides[index].classList.add("active");
 
-/* glow */
+bars.forEach(b=>b.style.width="0%");
+bars[index].style.transition=slideTimes[index]+"ms linear";
 
-if(slides[index].classList.contains("garima-slide")){
-document.body.classList.add("lavender-glow");
-}else{
-document.body.classList.remove("lavender-glow");
-}
+setTimeout(()=>{bars[index].style.width="100%"},50);
 
-/* typing */
-
-if(slides[index].querySelector("#letterText")){
-typeLetter();
-}
-
-/* heart burst */
-
-if(slides[index].classList.contains("final-slide")){
-heartBurst();
-}
-
-}
-
-setInterval(()=>{
+slideTimeout=setTimeout(()=>{
 index++;
-if(index>=slides.length) index=0;
-showSlide();
-},9000);
+
+if(index>=slides.length){
+fireworks();
+index=0;
+}
 
 showSlide();
+
+},slideTimes[index]);
+
+}
+
+/* start button */
+
+let intro=document.getElementById("intro");
+let music=document.getElementById("music");
+
+document.getElementById("startBtn").onclick=function(){
+
+intro.style.display="none";
+
+music.volume=0;
+music.play();
+
+let vol=0;
+
+let fade=setInterval(()=>{
+if(vol<0.6){
+vol+=0.05;
+music.volume=vol;
+}else{
+clearInterval(fade);
+}
+},200);
+
+showSlide();
+
+}
+
+/* navigation */
+
+document.body.addEventListener("click",(e)=>{
+
+if(intro.style.display!=="none") return;
+
+if(e.clientX>window.innerWidth/2) index++;
+else index--;
+
+if(index<0) index=slides.length-1;
+if(index>=slides.length) index=0;
+
+showSlide();
+
+});
 
 /* swipe */
 
@@ -397,30 +360,31 @@ document.body.appendChild(p);
 setTimeout(()=>p.remove(),8000);
 },1500);
 
-/* counter */
 
-const startDate=new Date("2024-02-14T00:00:00").getTime();
+/* ULTRA SMOOTH COUNTER (DAYS HOURS MINUTES SECONDS MILLISECONDS) */
+
+const startDate = new Date("2024-02-14T00:00:00").getTime();
 
 function updateCounter(){
 
-let now=Date.now();
-let diff=now-startDate;
+const now = Date.now();
+const diff = now - startDate;
 
-let days=Math.floor(diff/(1000*60*60*24));
-let hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-let minutes=Math.floor((diff%(1000*60*60))/(1000*60));
-let seconds=Math.floor((diff%(1000*60))/1000);
-let milliseconds=diff%1000;
+const days = Math.floor(diff / (1000*60*60*24));
+const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+const seconds = Math.floor((diff % (1000*60)) / 1000);
+const milliseconds = diff % 1000;
 
-let el=document.getElementById("counter");
+const el = document.getElementById("counter");
 
 if(el){
-el.innerHTML=
-days+" Days<br>"+
-hours+" Hours<br>"+
-minutes+" Minutes<br>"+
-seconds+" Seconds<br>"+
-milliseconds+" Milliseconds<br>"+
+el.innerHTML =
+days + " Days<br>" +
+hours + " Hours<br>" +
+minutes + " Minutes<br>" +
+seconds + " Seconds<br>" +
+milliseconds + " Milliseconds<br>" +
 "since I met you ❤️";
 }
 
@@ -430,68 +394,431 @@ requestAnimationFrame(updateCounter);
 
 updateCounter();
 
-/* typing */
+/* fireworks */
 
-const letterMessage=`Garima,
-
-Tum jis tarah apne dreams ke liye mehnat karti ho
-aur doctor banne ka goal rakhti ho
-wo mujhe bahut inspire karta hai 👩‍⚕️
-
-Mujhe pura yakeen hai
-ek din tum ek amazing doctor banogi
-aur bahut logon ki life better banaogi.
-
-Aur honestly…
-mujhe bahut accha lagta hai
-ki tum meri life ka part ho ❤️`;
-
-function typeLetter(){
-
-let el=document.getElementById("letterText");
-el.innerHTML="";
-let i=0;
-
-function type(){
-
-if(i<letterMessage.length){
-el.innerHTML+=letterMessage.charAt(i);
-i++;
-setTimeout(type,35);
-}
-
-}
-
-type();
-
-}
-
-/* heart burst */
-
-function heartBurst(){
-
+function fireworks(){
 for(let i=0;i<80;i++){
+let f=document.createElement("div");
+f.innerHTML="✨";
+f.style.position="fixed";
+f.style.left=Math.random()*100+"vw";
+f.style.top=Math.random()*100+"vh";
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),2000);
+}
+}
 
-let heart=document.createElement("div");
+</script>
 
-heart.innerHTML="💜";
-heart.style.position="fixed";
-heart.style.left="50%";
-heart.style.top="50%";
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
 
-let x=(Math.random()*600)-300;
-let y=(Math.random()*600)-300;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-heart.style.transform=`translate(${x}px,${y}px)`;
+<title>Happy Women's Day Garima</title>
 
-document.body.appendChild(heart);
+<style>
 
-setTimeout(()=>{
-heart.remove();
-},2000);
+body{
+margin:0;
+font-family:Segoe UI;
+background:#000;
+color:white;
+overflow:hidden;
+}
+
+/* intro */
+
+#intro{
+position:fixed;
+width:100%;
+height:100svh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:black;
+z-index:10;
+text-align:center;
+}
+
+#intro h1{
+font-size:clamp(32px,9vw,70px);
+color:#e9d5ff;
+text-shadow:0 0 25px #c084fc;
+}
+
+#startBtn{
+padding:12px 25px;
+font-size:18px;
+background:#c084fc;
+border:none;
+border-radius:25px;
+color:white;
+margin-top:20px;
+}
+
+/* slides */
+
+.slide{
+position:absolute;
+width:100%;
+height:100svh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+opacity:0;
+transform:scale(1.2);
+transition:all 1s;
+}
+
+.active{
+opacity:1;
+transform:scale(1);
+}
+
+h1{
+font-size:clamp(30px,8vw,60px);
+color:#e9d5ff;
+}
+
+h2{
+font-size:clamp(22px,6vw,40px);
+color:#f5d0fe;
+}
+
+p{
+font-size:clamp(16px,4.5vw,22px);
+max-width:90%;
+line-height:1.6;
+}
+
+/* progress */
+
+.progress-container{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+display:flex;
+gap:4px;
+padding:6px;
+}
+
+.progress{
+flex:1;
+height:4px;
+background:rgba(255,255,255,0.2);
+}
+
+.bar{
+height:100%;
+width:0%;
+background:#c084fc;
+}
+
+/* hearts */
+
+.heart{
+position:fixed;
+bottom:-10px;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0)}
+100%{transform:translateY(-100vh)}
+}
+
+/* petals */
+
+.petal{
+position:fixed;
+top:-10px;
+font-size:18px;
+animation:fall 8s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(0)}
+100%{transform:translateY(100vh)}
+}
+
+/* letter */
+
+.letter-card{
+background:rgba(255,255,255,0.08);
+border-radius:20px;
+padding:20px;
+max-width:90%;
+width:500px;
+box-sizing:border-box;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="intro">
+<h1>Happy Women's Day 🌸</h1>
+<button id="startBtn">Start Story</button>
+</div>
+
+<div class="progress-container" id="progressContainer"></div>
+
+<!-- slides -->
+
+<div class="slide active">
+<h1>Happy Women's Day 🌸</h1>
+<p>A little story for someone special...</p>
+<p style="opacity:0.6;font-size:14px">Tap or swipe to continue →</p>
+</div>
+
+<div class="slide">
+<h1>Women</h1>
+<p>Women are not just part of the world — they are the strength that keeps it moving.</p>
+</div>
+
+<div class="slide">
+<h1>Respect</h1>
+<p>Every woman deserves respect and equality — not just today, but every single day.</p>
+</div>
+
+<div class="slide">
+<h1>Someone Special</h1>
+<p>Among millions of women in the world… someone means a little more to me.</p>
+</div>
+
+<div class="slide">
+<h1>Garima 💜</h1>
+<p>Kind • Strong • Supportive • Future Doctor 👩‍⚕️</p>
+</div>
+
+<div class="slide">
+<h1>Since I Met You</h1>
+<p id="counter"></p>
+</div>
+
+<div class="slide">
+<h1>My Golu</h1>
+<p>Sometimes a person enters your life and quietly changes it for the better.</p>
+</div>
+
+<div class="slide">
+<h1>My Wife Jii</h1>
+<p>Maybe today I jokingly call you Wife Jii… but somewhere in my heart I wish it becomes real.</p>
+</div>
+
+<div class="slide">
+<div class="letter-card">
+<h1>A Letter For You</h1>
+<p>
+Garima, the way you chase your dreams and care for people inspires me every single day.
+Your kindness and strength make this world a better place.
+</p>
+</div>
+</div>
+
+<div class="slide">
+<h1>Garima ❤️ Vatsal</h1>
+<h2>Happy Women's Day</h2>
+<p>— From Vatsal</p>
+</div>
+
+<audio id="music" loop preload="auto">
+<source src="my.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* slides */
+
+let slides=document.querySelectorAll(".slide");
+let progressContainer=document.getElementById("progressContainer");
+
+let index=0;
+let slideTimeout;
+
+let slideTimes=[7000,7000,10000,10000,10000,7000,10000,10000,12000,7000];
+
+slides.forEach(()=>{
+let p=document.createElement("div");
+p.className="progress";
+let b=document.createElement("div");
+b.className="bar";
+p.appendChild(b);
+progressContainer.appendChild(p);
+});
+
+let bars=document.querySelectorAll(".bar");
+
+function showSlide(){
+
+clearTimeout(slideTimeout);
+
+slides.forEach(s=>s.classList.remove("active"));
+slides[index].classList.add("active");
+
+bars.forEach(b=>b.style.width="0%");
+bars[index].style.transition=slideTimes[index]+"ms linear";
+
+setTimeout(()=>{bars[index].style.width="100%"},50);
+
+slideTimeout=setTimeout(()=>{
+index++;
+
+if(index>=slides.length){
+fireworks();
+index=0;
+}
+
+showSlide();
+
+},slideTimes[index]);
 
 }
 
+/* start button */
+
+let intro=document.getElementById("intro");
+let music=document.getElementById("music");
+
+document.getElementById("startBtn").onclick=function(){
+
+intro.style.display="none";
+
+music.volume=0;
+music.play();
+
+let vol=0;
+
+let fade=setInterval(()=>{
+if(vol<0.6){
+vol+=0.05;
+music.volume=vol;
+}else{
+clearInterval(fade);
+}
+},200);
+
+showSlide();
+
+}
+
+/* navigation */
+
+document.body.addEventListener("click",(e)=>{
+
+if(intro.style.display!=="none") return;
+
+if(e.clientX>window.innerWidth/2) index++;
+else index--;
+
+if(index<0) index=slides.length-1;
+if(index>=slides.length) index=0;
+
+showSlide();
+
+});
+
+/* swipe */
+
+let startX=0;
+
+document.addEventListener("touchstart",(e)=>{
+startX=e.touches[0].clientX;
+});
+
+document.addEventListener("touchend",(e)=>{
+
+let endX=e.changedTouches[0].clientX;
+
+if(startX-endX>50) index++;
+if(endX-startX>50) index--;
+
+if(index<0) index=slides.length-1;
+if(index>=slides.length) index=0;
+
+showSlide();
+
+});
+
+/* hearts */
+
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💜";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},700);
+
+/* petals */
+
+setInterval(()=>{
+let p=document.createElement("div");
+p.className="petal";
+p.innerHTML="🌹";
+p.style.left=Math.random()*100+"vw";
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),8000);
+},1500);
+
+
+/* ULTRA SMOOTH COUNTER (DAYS HOURS MINUTES SECONDS MILLISECONDS) */
+
+const startDate = new Date("2024-02-14T00:00:00").getTime();
+
+function updateCounter(){
+
+const now = Date.now();
+const diff = now - startDate;
+
+const days = Math.floor(diff / (1000*60*60*24));
+const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+const seconds = Math.floor((diff % (1000*60)) / 1000);
+const milliseconds = diff % 1000;
+
+const el = document.getElementById("counter");
+
+if(el){
+el.innerHTML =
+days + " Days<br>" +
+hours + " Hours<br>" +
+minutes + " Minutes<br>" +
+seconds + " Seconds<br>" +
+milliseconds + " Milliseconds<br>" +
+"since I met you ❤️";
+}
+
+requestAnimationFrame(updateCounter);
+
+}
+
+updateCounter();
+
+/* fireworks */
+
+function fireworks(){
+for(let i=0;i<80;i++){
+let f=document.createElement("div");
+f.innerHTML="✨";
+f.style.position="fixed";
+f.style.left=Math.random()*100+"vw";
+f.style.top=Math.random()*100+"vh";
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),2000);
+}
 }
 
 </script>
