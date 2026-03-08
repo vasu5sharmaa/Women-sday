@@ -166,22 +166,22 @@ box-sizing:border-box;
 <div class="slide active">
 <h1>Happy Women's Day 🌸</h1>
 <p>A little story for someone special...</p>
-<p style="opacity:0.6;font-size:14px">Tap ya swipe karke aage dekho →</p>
+<p style="opacity:0.6;font-size:14px">Tap or swipe to continue →</p>
 </div>
 
 <div class="slide">
 <h1>Women</h1>
-<p>Women sirf duniya ka hissa nahi hoti… woh duniya ko better banane ki wajah hoti hain ✨</p>
+<p>Women are not just part of the world — they are the strength that keeps it moving.</p>
 </div>
 
 <div class="slide">
 <h1>Respect</h1>
-<p>Har woman respect aur happiness deserve karti hai 💜 sirf aaj nahi… har ek din.</p>
+<p>Every woman deserves respect and equality — not just today, but every single day.</p>
 </div>
 
 <div class="slide">
 <h1>Someone Special</h1>
-<p>Duniya me bahut amazing women hain… par un sab me se ek aisi bhi hai jo mere liye thodi si zyada special hai ✨</p>
+<p>Among millions of women in the world… someone means a little more to me.</p>
 </div>
 
 <div class="slide">
@@ -195,35 +195,29 @@ box-sizing:border-box;
 </div>
 
 <div class="slide">
-<h1>Someone Special</h1>
-<p>Kabhi kabhi koi insaan zindagi me aata hai aur dheere dheere bahut special ban jata hai… mere liye wo tum ho 💜</p>
+<h1>My Golu</h1>
+<p>Sometimes a person enters your life and quietly changes it for the better.</p>
 </div>
 
 <div class="slide">
-<h1>Wife Jii</h1>
-<p>Kabhi kabhi main tumhe Wife Jii bol deta hoon 😄 par sach kahun… tum meri life me bhi thodi special ho ❤️</p>
+<h1>My Wife Jii</h1>
+<p>Maybe today I jokingly call you Wife Jii… but somewhere in my heart I wish it becomes real.</p>
 </div>
 
 <div class="slide">
 <div class="letter-card">
-<h1>A Letter For You 💌</h1>
+<h1>A Letter For You</h1>
 <p>
-Garima,
-
-Tum jis tarah apne dreams ke liye mehnat karti ho aur doctor banne ka goal rakhti ho wo mujhe bahut inspire karta hai 👩‍⚕️
-
-Mujhe pura yakeen hai ek din tum ek amazing doctor banogi aur bahut logon ki life better banaogi.
-
-Aur honestly… mujhe bahut accha lagta hai ki tum meri life ka part ho 💜
+Garima, the way you chase your dreams and care for people inspires me every single day.
+Your kindness and strength make this world a better place.
 </p>
 </div>
 </div>
 
 <div class="slide">
 <h1>Garima ❤️ Vatsal</h1>
-<h2>Happy Women's Day 🌸</h2>
-<p>I'm really glad that someone like you is part of my life ✨</p>
-<p>— Vatsal ❤️</p>
+<h2>Happy Women's Day</h2>
+<p>— From Vatsal</p>
 </div>
 
 <audio id="music" loop preload="auto">
@@ -261,12 +255,11 @@ slides.forEach(s=>s.classList.remove("active"));
 slides[index].classList.add("active");
 
 bars.forEach(b=>b.style.width="0%");
-bars[index].style.transition=slideTimes[index % slideTimes.length]+"ms linear";
+bars[index].style.transition=slideTimes[index]+"ms linear";
 
 setTimeout(()=>{bars[index].style.width="100%"},50);
 
 slideTimeout=setTimeout(()=>{
-
 index++;
 
 if(index>=slides.length){
@@ -276,7 +269,7 @@ index=0;
 
 showSlide();
 
-}, slideTimes[index % slideTimes.length]);
+},slideTimes[index]);
 
 }
 
@@ -306,6 +299,22 @@ clearInterval(fade);
 showSlide();
 
 }
+
+/* navigation */
+
+document.body.addEventListener("click",(e)=>{
+
+if(intro.style.display!=="none") return;
+
+if(e.clientX>window.innerWidth/2) index++;
+else index--;
+
+if(index<0) index=slides.length-1;
+if(index>=slides.length) index=0;
+
+showSlide();
+
+});
 
 /* swipe */
 
@@ -351,7 +360,7 @@ document.body.appendChild(p);
 setTimeout(()=>p.remove(),8000);
 },1500);
 
-/* counter */
+/* ULTRA SMOOTH COUNTER (DAYS HOURS MINUTES SECONDS MILLISECONDS) */
 
 const startDate = new Date("2024-02-14T00:00:00").getTime();
 
@@ -383,7 +392,7 @@ requestAnimationFrame(updateCounter);
 }
 
 updateCounter();
-
+  
 /* fireworks */
 
 function fireworks(){
